@@ -14,6 +14,10 @@ class UndecidedCook extends Component {
     this.props.cookActions.fetchRecommendations();
   }
 
+  goHome = () => {
+    this.props.history.push('/');
+  }
+
   abandonCooking = () => {
     this.props.setRole({ role: '' });
     this.props.cookActions.clearCook();
@@ -78,6 +82,9 @@ class UndecidedCook extends Component {
         title="おすすめメニュー"
         footer={
           <ButtonToolbar>
+            <Button onClick={() => this.goHome()}>
+              戻る
+            </Button>
             <Button onClick={() => this.abandonCooking()} bsStyle="danger">
               作るのをやめる
             </Button>

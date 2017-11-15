@@ -16,8 +16,6 @@ class Auth extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    console.log(nextProps.auth.sessionId, this.state.isAuthenticated);
-
     if (!!nextProps.auth.sessionId !== this.state.isAuthenticated) {
       this.onAuthStateChanged(!!nextProps.auth.sessionId);
     }

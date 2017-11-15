@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import Auth from '../containers/Auth';
 import Header from '../containers/Header';
-import Home from '../components/Home';
+import Home from '../containers/Home';
 import Cook from '../containers/Cook';
 import Dependent from '../containers/Dependent';
 import SignIn from '../containers/SignIn';

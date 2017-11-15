@@ -7,8 +7,21 @@
   "license": "MIT",
   "dependencies": {
     "camel-case": "^3.0.0",
+    "cheerio": "^1.0.0-rc.2",
     "constant-mirror": "^1.1.1",
+    "fetch-check-http-status": "^2.0.0",
+    "forever": "^0.15.3",
+    "fs-extra": "^4.0.2",
     "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-compress": "^2.0.0",
+    "koa-log": "^2.1.0",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.3.0",
+    "koa-static": "^4.0.1",
+    "lodash.samplesize": "^4.2.0",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.0",
@@ -51,13 +64,16 @@
     "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
-    "build": "npm-run-all clean copy build:bin build:client",
-    "build:bin": "babel src/bin --out-dir lib --source-maps",
+    "build": "npm-run-all clean copy build:server build:client",
+    "build:server": "babel src/server --out-dir lib --source-maps",
     "build:client": "webpack --config webpack.config.js --progress --display-error-details --display-optimization-bailout",
     "clean": "rimraf lib dist",
     "copy": "cpr index.html dist/",
     "lint": "eslint src/**/*.{js,jsx}",
-    "start": "npm-run-all clean copy start:server",
-    "start:server": "webpack-dev-server --open"
+    "start": "npm-run-all start:server",
+    "start:fresh": "npm-run-all build start",
+    "start:server": "forever start lib/server.js -f",
+    "stop": "forever stop lib/server.js",
+    "stop:force": "forever stopall"
   }
 }

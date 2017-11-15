@@ -30,7 +30,7 @@ const DecidedCook = ({ menu, cookActions }) => (
     header={<h3>{menu.title}</h3>}
     footer={
       <ButtonToolbar>
-        <Button onClick={() => cookActions.makeSecondThought()} bsStyle="danger">
+        <Button onClick={() => cookActions.makeSecondThought()}>
           別の料理にする
         </Button>
         {

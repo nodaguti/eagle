@@ -44,8 +44,6 @@ class SignIn extends Component {
   };
 
   render() {
-    console.log(this.props.auth.toJS());
-
     return this.props.auth.sessionId ? (
       <Redirect to="/" />
     ) : (

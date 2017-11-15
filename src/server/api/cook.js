@@ -111,6 +111,11 @@ const api = {
     }
   },
 
+  async answer(ctx) {
+    ctx.body = answer || {};
+    ctx.status = 200;
+  },
+
   async decide(ctx) {
     const menu = ctx.request.body;
 
@@ -127,6 +132,7 @@ const api = {
 
 export default function (router) {
   router.get('/api/cook/recommendations', api.recommendations);
+  router.get('/api/cook/answer', api.answer);
   router.post('/api/cook/decide', api.decide);
 
   doRecommendationPolling(6 * 60 * 60 * 1000);

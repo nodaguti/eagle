@@ -58,6 +58,7 @@ class Cook extends Component {
           )
         }
         <Panel
+          bsStyle="success"
           header={<h3>次の料理の中から夕ご飯を予想してください．</h3>}
           footer={
             <ButtonToolbar>

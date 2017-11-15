@@ -11,7 +11,7 @@ const GuestHeader = () => (
   <Navbar inverse>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link href="/" to="/">今日何食べル？</Link>
+        <Link href="/" to="/">今日なに食べル？</Link>
       </Navbar.Brand>
     </Navbar.Header>
     <Nav pullRight>

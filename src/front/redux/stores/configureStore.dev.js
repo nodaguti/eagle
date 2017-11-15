@@ -6,9 +6,13 @@ import { Iterable } from 'immutable';
 import transit from 'transit-immutable-js';
 import rootReducer from '../../redux/reducers';
 import { records as authRecords } from '../../redux/reducers/auth';
+import { records as userRecords } from '../../redux/reducers/user';
+import { records as cookRecords } from '../../redux/reducers/cook';
 import { records as errorRecords } from '../../redux/reducers/error';
 
 const recordTransit = transit.withRecords([
+  ...userRecords,
+  ...cookRecords,
   ...authRecords,
   ...errorRecords,
 ]);

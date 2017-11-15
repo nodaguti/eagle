@@ -13,7 +13,6 @@ const port = process.env.PORT || 8080;
 const assetsPath = path.resolve(__dirname, '../dist/assets');
 
 app.use(logger());
-app.use(logger('dev'));
 app.use(compress());
 app.use(bodyParser());
 app.use(mount('/assets', serve(assetsPath)));

@@ -12,16 +12,20 @@ const mapStateToProps = (state) => ({
 
 class Auth extends Component {
   componentWillMount() {
-    this.userWillTransfer(this.props);
+    this.onAuthStateChanged(!!this.props.auth.sessionId);
   }
 
   componentWillUpdate(nextProps) {
-    this.userWillTransfer(nextProps);
+    console.log(nextProps.auth.sessionId, this.state.isAuthenticated);
+
+    if (!!nextProps.auth.sessionId !== this.state.isAuthenticated) {
+      this.onAuthStateChanged(!!nextProps.auth.sessionId);
+    }
   }
 
-  userWillTransfer(props) {
+  onAuthStateChanged(nextState) {
     this.setState({
-      isAuthenticated: !!props.auth.sessionId,
+      isAuthenticated: nextState,
     });
   }
 

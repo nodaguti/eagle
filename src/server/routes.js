@@ -4,7 +4,7 @@
 import fs from 'fs-extra';
 import Router from 'koa-router';
 import path from 'path';
-import api from './api';
+import registerAPI from './api';
 
 const indexPath = path.resolve(__dirname, '../dist/index.html');
 let indexPage;
@@ -23,9 +23,7 @@ const serveHome = async (ctx) => {
 };
 
 const router = new Router();
-
-router.get('/api/cook/recommendations', api.cook.recommendations);
-router.post('/api/cook/decide', api.cook.decide);
+registerAPI(router);
 router.get('/(.*)', serveHome);
 
 export default function (app) {

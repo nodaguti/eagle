@@ -3,7 +3,7 @@ import { Record } from 'immutable';
 
 const User = new Record({
   name: '',
-  role: 'dependent',
+  role: '',
   score: 0,
 }, 'user');
 

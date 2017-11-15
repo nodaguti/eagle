@@ -1,7 +1,7 @@
 import camelCase from 'camel-case';
 import { Record, List } from 'immutable';
 
-const Recipe = new Record({
+export const Recipe = new Record({
   title: '',
   description: '',
   ingredients: new List(),

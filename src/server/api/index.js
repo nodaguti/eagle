@@ -5,5 +5,5 @@ import dependent from './dependent';
 export default function (router) {
   cook(router);
 //  user(router);
-//  dependent(router);
+  dependent(router);
 }

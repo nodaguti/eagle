@@ -7,12 +7,14 @@ import rootReducer from '../../redux/reducers';
 import { records as authRecords } from '../../redux/reducers/auth';
 import { records as userRecords } from '../../redux/reducers/user';
 import { records as cookRecords } from '../../redux/reducers/cook';
+import { records as dependentRecords } from '../../redux/reducers/dependent';
 import { records as errorRecords } from '../../redux/reducers/error';
 
 const recordTransit = transit.withRecords([
   ...userRecords,
   ...cookRecords,
   ...authRecords,
+  ...dependentRecords,
   ...errorRecords,
 ]);
 

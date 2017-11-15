@@ -3,14 +3,16 @@ import fetch from 'isomorphic-fetch';
 import checkStatus from 'fetch-check-http-status';
 import cheerio from 'cheerio';
 import sampleSize from 'lodash.samplesize';
+import DB from './_kvs';
 
-const recommendations = {
+DB.set('recommendations', {
   seasonal: [],
   ranking: [],
   device: [],
-};
+});
 
-let answer = null;
+DB.set('answer', null);
+
 
 async function getRecipeDetails(uri) {
   const res = await fetch(uri);
@@ -83,12 +85,17 @@ async function getRanking() {
 }
 
 async function getDeviceRecommendations() {
-  return sampleSize(recommendations.seasonal.concat(recommendations.ranking), 3);
+  const rec = DB.get('recommendations');
+  const candidates = rec.seasonal.concat(rec.ranking);
+
+  return sampleSize(candidates, 3);
 }
 
 async function doRecommendationPolling(interval) {
-  recommendations.seasonal = await getSeasonalRecommendations();
-  recommendations.ranking = await getRanking();
+  const rec = DB.get('recommendations');
+  rec.seasonal = await getSeasonalRecommendations();
+  rec.ranking = await getRanking();
+  DB.set('recommendations', rec);
 
   setInterval(() => doRecommendationPolling(), interval);
 }
@@ -97,8 +104,11 @@ async function doRecommendationPolling(interval) {
 const api = {
   async recommendations(ctx) {
     try {
-      recommendations.device = await getDeviceRecommendations();
-      ctx.body = recommendations;
+      const rec = DB.get('recommendations');
+      rec.device = await getDeviceRecommendations();
+      DB.set('recommendations', rec);
+
+      ctx.body = rec;
       ctx.status = 200;
     } catch (err) {
       console.error(err.stack);
@@ -112,7 +122,7 @@ const api = {
   },
 
   async answer(ctx) {
-    ctx.body = answer || {};
+    ctx.body = DB.get('answer') || {};
     ctx.status = 200;
   },
 
@@ -120,7 +130,7 @@ const api = {
     const menu = ctx.request.body;
 
     // TODO: Store the data in a database
-    answer = menu;
+    DB.set('answer', menu);
 
     ctx.body = {
       success: true,

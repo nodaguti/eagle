@@ -11,6 +11,9 @@ export default constantMirror(
   'ORIGINAL_MENU_DECIDED',
   'CLEAR_MENU',
   'CLEAR_COOK',
+  'ALTERNATIVES_FETCHED',
+  'ANSWER_DECIDED',
+  'CLEAR_ANSWER',
   'EMIT_ERROR',
   'CLEAR_ERROR',
 );

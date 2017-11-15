@@ -11,8 +11,6 @@ let indexPage;
 
 /* eslint-disable no-param-reassign */
 const serveHome = async (ctx) => {
-  console.log('Serve Home!');
-
   if (!indexPage) {
     indexPage = await fs.readFile(indexPath, 'utf8');
   }

@@ -10,6 +10,8 @@ const recommendations = {
   device: [],
 };
 
+let answer = null;
+
 async function getRecipeDetails(uri) {
   const res = await fetch(uri);
   const page = await res.text();
@@ -91,7 +93,8 @@ async function doRecommendationPolling(interval) {
   setInterval(() => doRecommendationPolling(), interval);
 }
 
-export default {
+
+const api = {
   async recommendations(ctx) {
     try {
       recommendations.device = await getDeviceRecommendations();
@@ -109,8 +112,22 @@ export default {
   },
 
   async decide(ctx) {
-    // nop
+    const menu = ctx.request.body;
+
+    // TODO: Store the data in a database
+    answer = menu;
+
+    ctx.body = {
+      success: true,
+    };
+    ctx.status = 200;
   },
 };
 
-doRecommendationPolling(6 * 60 * 60 * 1000);
+
+export default function (router) {
+  router.get('/api/cook/recommendations', api.recommendations);
+  router.post('/api/cook/decide', api.decide);
+
+  doRecommendationPolling(6 * 60 * 60 * 1000);
+}

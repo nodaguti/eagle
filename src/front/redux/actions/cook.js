@@ -28,17 +28,71 @@ export function fetchRecommendations() {
 }
 
 export function decideMenu({ menu }) {
-  return {
-    type: actions.MENU_DECIDED,
-    payload: { menu },
-  };
+  return (dispatch) => (async () => {
+    try {
+      const res = await fetch(`${SERVER_URL}/decide`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(menu.toJS()),
+      });
+      const result = await res.json();
+
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+
+      dispatch({
+        type: actions.MENU_DECIDED,
+        payload: { menu },
+      });
+    } catch (err) {
+      dispatch({
+        type: actions.EMIT_ERROR,
+        payload: {
+          name: 'レシピ登録エラー',
+          message: '選択したレシピを登録中にエラーが発生しました．',
+          details: err,
+        },
+      });
+    }
+  })();
 }
 
 export function decideOriginalMenu({ title }) {
-  return {
-    type: actions.ORIGINAL_MENU_DECIDED,
-    payload: { title },
-  };
+  return (dispatch) => (async () => {
+    try {
+      const res = await fetch(`${SERVER_URL}/decide`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title }),
+      });
+      const result = await res.json();
+
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+
+      dispatch({
+        type: actions.ORIGINAL_MENU_DECIDED,
+        payload: { title },
+      });
+    } catch (err) {
+      dispatch({
+        type: actions.EMIT_ERROR,
+        payload: {
+          name: 'レシピ登録エラー',
+          message: 'レシピを登録中にエラーが発生しました．',
+          details: err,
+        },
+      });
+    }
+  })();
 }
 
 export function makeSecondThought() {

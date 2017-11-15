@@ -70,7 +70,7 @@
     "clean": "rimraf lib dist",
     "copy": "cpr index.html dist/",
     "lint": "eslint src/**/*.{js,jsx}",
-    "start": "npm-run-all start:server",
+    "start": "npm-run-all start:fresh",
     "start:fresh": "npm-run-all build start",
     "start:server": "forever start lib/server.js -f",
     "stop": "forever stop lib/server.js",

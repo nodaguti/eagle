@@ -3,8 +3,20 @@ import { Navbar } from 'react-bootstrap';
 import fetch from 'isomorphic-fetch';
 
 export default class Telemetry extends Component {
+
+  static timer = null;
+
   componentWillMount() {
-    this.pollTelemetryAPI();
+    if (!this.timer) {
+      this.timer = setInterval(() => this.pollTelemetryAPI(), 5 * 1000);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
   }
 
   async pollTelemetryAPI() {
@@ -12,8 +24,6 @@ export default class Telemetry extends Component {
     const telemetry = await res.json();
 
     this.setState({ telemetry });
-
-    setInterval(() => this.pollTelemetryAPI(), 5 * 1000);
   }
 
   render() {

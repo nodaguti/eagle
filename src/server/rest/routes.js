@@ -6,7 +6,7 @@ import Router from 'koa-router';
 import path from 'path';
 import registerAPI from './api';
 
-const indexPath = path.resolve(__dirname, '../dist/index.html');
+const indexPath = path.resolve(__dirname, '../../dist/index.html');
 let indexPage;
 
 /* eslint-disable no-param-reassign */
@@ -21,6 +21,7 @@ const serveHome = async (ctx) => {
 };
 
 const router = new Router();
+
 registerAPI(router);
 router.get('/(.*)', serveHome);
 

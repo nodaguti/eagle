@@ -14,11 +14,13 @@ const GuestHeader = () => (
         <Link href="/" to="/">今日なに食べル？</Link>
       </Navbar.Brand>
     </Navbar.Header>
-    <Nav pullRight>
-      <LinkContainer to="/signin">
-        <NavItem>ログイン</NavItem>
-      </LinkContainer>
-    </Nav>
+    <Navbar.Collapse>
+      <Nav pullRight>
+        <LinkContainer to="/signin">
+          <NavItem>ログイン</NavItem>
+        </LinkContainer>
+      </Nav>
+    </Navbar.Collapse>
   </Navbar>
 );
 

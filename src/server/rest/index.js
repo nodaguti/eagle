@@ -9,7 +9,6 @@ import routes from './routes';
 
 export default function () {
   const app = new Koa();
-  const ip = process.env.IP || 'localhost';
   const port = process.env.PORT || 8080;
   const assetsPath = path.resolve(__dirname, '../../dist/assets');
 
@@ -19,8 +18,8 @@ export default function () {
   app.use(mount('/assets', serve(assetsPath)));
   routes(app);
 
-  app.listen(port, ip, () => {
+  app.listen(port, () => {
     // eslint-disable-next-line no-console
-    console.log(`REST Application is running at: http://${ip}:${port}`);
+    console.log(`Our REST server is listening on port ${port}`);
   });
 }
